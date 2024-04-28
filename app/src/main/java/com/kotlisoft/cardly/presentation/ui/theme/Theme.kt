@@ -1,4 +1,4 @@
-package com.kotlisoft.cardly.ui.theme
+package com.kotlisoft.cardly.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

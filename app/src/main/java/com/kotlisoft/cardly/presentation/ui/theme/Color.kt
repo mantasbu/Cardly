@@ -1,4 +1,4 @@
-package com.kotlisoft.cardly.ui.theme
+package com.kotlisoft.cardly.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
