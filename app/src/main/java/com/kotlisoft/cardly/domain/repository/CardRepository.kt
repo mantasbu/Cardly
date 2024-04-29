@@ -1,13 +1,15 @@
 package com.kotlisoft.cardly.domain.repository
 
 import com.kotlisoft.cardly.domain.model.Card
+import kotlinx.coroutines.flow.Flow
 
 interface CardRepository {
-    fun getCards(): List<Card>
 
-    fun getCardById(id: Int): Card
+    suspend fun insertCard(card: Card, deckName: String)
 
-    fun insertCard(card: Card)
+    suspend fun getCardById(id: Int): Card
 
-    fun deleteCard(card: Card)
+    fun getCardsByDeck(deck: String): Flow<List<Card>>
+
+    suspend fun deleteCardById(id: Int)
 }
