@@ -4,9 +4,18 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [CardEntity::class],
+    entities = [
+        CardEntity::class,
+        DeckEntity::class,
+    ],
     version = 1,
 )
 abstract class CardsDatabase: RoomDatabase() {
-    abstract val dao: CardDao
+
+    abstract val cardDao: CardDao
+    abstract val deckDao: DeckDao
+
+    companion object {
+        const val DATABASE_NAME = "cards_db"
+    }
 }
