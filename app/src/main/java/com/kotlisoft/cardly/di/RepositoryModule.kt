@@ -5,9 +5,14 @@ import com.kotlisoft.cardly.data.repository.CardRepositoryImpl
 import com.kotlisoft.cardly.data.repository.DeckRepositoryImpl
 import com.kotlisoft.cardly.domain.repository.CardRepository
 import com.kotlisoft.cardly.domain.repository.DeckRepository
+import com.kotlisoft.cardly.domain.use_case.AddCard
 import com.kotlisoft.cardly.domain.use_case.AddDeck
+import com.kotlisoft.cardly.domain.use_case.CardUseCases
 import com.kotlisoft.cardly.domain.use_case.DeckUseCases
+import com.kotlisoft.cardly.domain.use_case.DeleteCard
 import com.kotlisoft.cardly.domain.use_case.DeleteDeckByName
+import com.kotlisoft.cardly.domain.use_case.GetCard
+import com.kotlisoft.cardly.domain.use_case.GetCardsByDeck
 import com.kotlisoft.cardly.domain.use_case.GetDecks
 import dagger.Module
 import dagger.Provides
@@ -41,6 +46,17 @@ object RepositoryModule {
             addDeck = AddDeck(deckRepository),
             deleteDeckByName = DeleteDeckByName(deckRepository),
             getDecks = GetDecks(deckRepository),
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideCardUseCases(cardRepository: CardRepository): CardUseCases {
+        return CardUseCases(
+            addCard = AddCard(cardRepository),
+            getCard = GetCard(cardRepository),
+            deleteCard = DeleteCard(cardRepository),
+            getCardsByDeck = GetCardsByDeck(cardRepository),
         )
     }
 }
