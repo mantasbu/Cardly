@@ -97,10 +97,10 @@ fun DeleteDeckDialog(
     AlertDialog(
         onDismissRequest = onDismissRequest,
         title = {
-            Text(text = "Delete Deck")
+            Text(text = stringResource(R.string.delete_deck))
         },
         text = {
-            Text(text = "Are you sure you want to delete a deck with all of its cards?")
+            Text(text = stringResource(R.string.delete_deck_content))
         },
         dismissButton = {
             Button(
@@ -117,7 +117,7 @@ fun DeleteDeckDialog(
                     onConfirmRequest()
                 }
             ) {
-                Text(text = "Delete")
+                Text(text = stringResource(R.string.delete))
             }
         },
     )
