@@ -42,7 +42,12 @@ class MainActivity : ComponentActivity() {
                         ),
                     ) {
                         val deckName = it.arguments?.getString(NavArgs.DECK_NAME.name) ?: ""
-                        CardsScreen(deckName)
+                        CardsScreen(
+                            deckName = deckName,
+                            onNavigateBack = {
+                                navController.popBackStack()
+                            },
+                        )
                     }
                     composable(route = Routes.QUIZ.name) {
                         // Once user clicks on a topic, he is taken to the quiz screen for practising
