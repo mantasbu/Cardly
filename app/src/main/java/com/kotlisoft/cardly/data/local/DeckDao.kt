@@ -19,9 +19,6 @@ interface DeckDao {
     @Query("SELECT * FROM decks")
     fun getDecks(): Flow<List<Deck>>
 
-    @Query("SELECT * FROM decks WHERE name = :name")
-    suspend fun getDeckByName(name: String): Deck
-
     @Transaction
     @Query("SELECT * FROM decks WHERE name = :deckName")
     suspend fun getDeckWithCards(deckName: String): DeckWithCardsEntity

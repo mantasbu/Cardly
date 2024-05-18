@@ -26,10 +26,6 @@ class DeckRepositoryImpl @Inject constructor(
         return dao.getDecks()
     }
 
-    override suspend fun getDeckByName(name: String): Deck {
-        return dao.getDeckByName(name)
-    }
-
     override suspend fun getDeckWithCards(deckName: String): DeckWithCards {
         return dao.getDeckWithCards(deckName).toDeckWithCards()
     }

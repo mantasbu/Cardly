@@ -12,7 +12,5 @@ interface DeckRepository {
 
     fun getDecks(): Flow<List<Deck>>
 
-    suspend fun getDeckByName(name: String): Deck
-
     suspend fun getDeckWithCards(deckName: String): DeckWithCards
 }
