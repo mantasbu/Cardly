@@ -19,6 +19,9 @@ interface DeckDao {
     @Query("SELECT * FROM decks")
     fun getDecks(): Flow<List<Deck>>
 
+    @Query("UPDATE decks SET name = :newDeckName WHERE name = :currentDeckName")
+    suspend fun updateDeckName(currentDeckName: String, newDeckName: String)
+
     @Transaction
     @Query("SELECT * FROM decks WHERE name = :deckName")
     suspend fun getDeckWithCards(deckName: String): DeckWithCardsEntity

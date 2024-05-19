@@ -26,6 +26,10 @@ class DeckRepositoryImpl @Inject constructor(
         return dao.getDecks()
     }
 
+    override suspend fun updateDeckName(currentDeckName: String, newDeckName: String) {
+        dao.updateDeckName(currentDeckName, newDeckName)
+    }
+
     override suspend fun getDeckWithCards(deckName: String): DeckWithCards {
         return dao.getDeckWithCards(deckName).toDeckWithCards()
     }
