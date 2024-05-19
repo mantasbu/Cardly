@@ -9,4 +9,5 @@
     <string name="delete_deck">Delete Deck</string>
     <string name="delete_deck_content">Are you sure you want to delete a deck with all of its cards?</string>
     <string name="delete">Delete</string>
+    <string name="save">Save</string>
 </resources>
