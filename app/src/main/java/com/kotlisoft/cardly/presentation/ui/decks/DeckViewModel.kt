@@ -22,15 +22,6 @@ class DeckViewModel @Inject constructor(
     private val _state = mutableStateOf(DecksState())
     val state: State<DecksState> = _state
 
-    private val _isAddDeckDialogVisible = mutableStateOf(false)
-    val isAddDeckDialogVisible: State<Boolean> = _isAddDeckDialogVisible
-
-    private val _isDeleteDeckDialogVisible = mutableStateOf(false)
-    val isDeleteDeckDialogVisible: State<Boolean> = _isDeleteDeckDialogVisible
-
-    private val _isEditDeckNameDialogVisible = mutableStateOf(false)
-    val isEditDeckNameDialogVisible: State<Boolean> = _isEditDeckNameDialogVisible
-
     private val _uiEventFlow = MutableSharedFlow<UiEvent>()
     val uiEventFlow = _uiEventFlow.asSharedFlow()
 
@@ -46,42 +37,42 @@ class DeckViewModel @Inject constructor(
     fun onEvent(event: DeckEvent) {
         when (event) {
             DeckEvent.AddDeck -> {
-                _isAddDeckDialogVisible.value = true
+                _state.value = state.value.copy(isAddDeckDialogVisible = true)
             }
             DeckEvent.CancelAddDeck -> {
-                _isAddDeckDialogVisible.value = false
+                _state.value = state.value.copy(isAddDeckDialogVisible = false)
             }
             is DeckEvent.ConfirmAddDeck -> {
                 val deckNameExists = _state.value.decks.map { it.name }.contains(event.name)
                 viewModelScope.launch {
                     if (!deckNameExists) {
                         deckUseCases.addDeck(deck = Deck(name = event.name))
-                        _isAddDeckDialogVisible.value = false
+                        _state.value = state.value.copy(isAddDeckDialogVisible = false)
                     } else {
                         _uiEventFlow.emit(UiEvent.DeckNameExists)
                     }
                 }
             }
             DeckEvent.DeleteDeck -> {
-                _isDeleteDeckDialogVisible.value = true
+                _state.value = state.value.copy(isDeleteDeckDialogVisible = true)
             }
             DeckEvent.CancelDeleteDeck -> {
-                _isDeleteDeckDialogVisible.value = false
+                _state.value = state.value.copy(isDeleteDeckDialogVisible = false)
             }
             is DeckEvent.ConfirmDeleteDeck -> {
-                _isDeleteDeckDialogVisible.value = false
+                _state.value = state.value.copy(isDeleteDeckDialogVisible = false)
                 viewModelScope.launch {
                     deckUseCases.deleteDeckByName(name = event.name)
                 }
             }
             is DeckEvent.EditDeckName -> {
-                _isEditDeckNameDialogVisible.value = true
+                _state.value = state.value.copy(isEditDeckNameDialogVisible = true)
             }
             DeckEvent.CancelEditDeckName -> {
-                _isEditDeckNameDialogVisible.value = false
+                _state.value = state.value.copy(isEditDeckNameDialogVisible = false)
             }
             is DeckEvent.ConfirmEditDeckName -> {
-                _isEditDeckNameDialogVisible.value = false
+                _state.value = state.value.copy(isEditDeckNameDialogVisible = false)
                 viewModelScope.launch {
                     deckUseCases.updateDeckName(event.currentDeckName, event.newDeckName)
                 }

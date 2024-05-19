@@ -41,8 +41,8 @@ fun CardsScreen(
     onNavigateBack: () -> Unit,
     deckViewModel: DeckViewModel = hiltViewModel(),
 ) {
-    val isDeleteDeckDialogVisible = deckViewModel.isDeleteDeckDialogVisible.value
-    val isEditDeckNameDialogVisible = deckViewModel.isEditDeckNameDialogVisible.value
+    val isDeleteDeckDialogVisible = deckViewModel.state.value.isDeleteDeckDialogVisible
+    val isEditDeckNameDialogVisible = deckViewModel.state.value.isEditDeckNameDialogVisible
     var currentDeckName by remember {
         mutableStateOf(deckName)
     }

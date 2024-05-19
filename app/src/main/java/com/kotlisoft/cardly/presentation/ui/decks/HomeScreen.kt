@@ -45,7 +45,7 @@ fun HomeScreen(
     viewModel: DeckViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    val isAddDeckDialogVisible = viewModel.isAddDeckDialogVisible.value
+    val isAddDeckDialogVisible = viewModel.state.value.isAddDeckDialogVisible
     val decks = viewModel.state.value.decks
 
     LaunchedEffect(Unit) {
