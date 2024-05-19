@@ -7,7 +7,7 @@ data class DeckWithCardsEntity(
     @Embedded
     val deck: DeckEntity,
     @Relation(
-        parentColumn = "name",
+        parentColumn = "id",
         entityColumn = "deckName",
     )
     val cards: List<CardEntity>,
