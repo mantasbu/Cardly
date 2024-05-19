@@ -14,6 +14,7 @@ import com.kotlisoft.cardly.domain.use_case.DeleteDeckByName
 import com.kotlisoft.cardly.domain.use_case.GetCard
 import com.kotlisoft.cardly.domain.use_case.GetCardsByDeck
 import com.kotlisoft.cardly.domain.use_case.GetDecks
+import com.kotlisoft.cardly.domain.use_case.UpdateDeckName
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,6 +46,7 @@ object RepositoryModule {
         return DeckUseCases(
             addDeck = AddDeck(deckRepository),
             deleteDeckByName = DeleteDeckByName(deckRepository),
+            updateDeckName = UpdateDeckName(deckRepository),
             getDecks = GetDecks(deckRepository),
         )
     }
