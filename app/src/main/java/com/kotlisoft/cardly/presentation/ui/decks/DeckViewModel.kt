@@ -28,6 +28,9 @@ class DeckViewModel @Inject constructor(
     private val _isDeleteDeckDialogVisible = mutableStateOf(false)
     val isDeleteDeckDialogVisible: State<Boolean> = _isDeleteDeckDialogVisible
 
+    private val _isEditDeckNameDialogVisible = mutableStateOf(false)
+    val isEditDeckNameDialogVisible: State<Boolean> = _isEditDeckNameDialogVisible
+
     private val _uiEventFlow = MutableSharedFlow<UiEvent>()
     val uiEventFlow = _uiEventFlow.asSharedFlow()
 
@@ -71,7 +74,18 @@ class DeckViewModel @Inject constructor(
                     deckUseCases.deleteDeckByName(name = event.name)
                 }
             }
-            is DeckEvent.EditDeckName -> TODO()
+            is DeckEvent.EditDeckName -> {
+                _isEditDeckNameDialogVisible.value = true
+            }
+            DeckEvent.CancelEditDeckName -> {
+                _isEditDeckNameDialogVisible.value = false
+            }
+            is DeckEvent.ConfirmEditDeckName -> {
+                _isEditDeckNameDialogVisible.value = false
+                viewModelScope.launch {
+                    deckUseCases.updateDeckName(event.currentDeckName, event.newDeckName)
+                }
+            }
         }
     }
 
