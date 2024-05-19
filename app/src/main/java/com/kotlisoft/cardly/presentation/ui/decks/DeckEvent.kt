@@ -7,5 +7,10 @@ sealed class DeckEvent {
     data object DeleteDeck: DeckEvent()
     data class ConfirmDeleteDeck(val name: String): DeckEvent()
     data object CancelDeleteDeck: DeckEvent()
-    data class EditDeckName(val name: String): DeckEvent()
+    data object EditDeckName: DeckEvent()
+    data object CancelEditDeckName: DeckEvent()
+    data class ConfirmEditDeckName(
+        val currentDeckName: String,
+        val newDeckName: String,
+    ): DeckEvent()
 }
