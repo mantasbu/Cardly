@@ -13,7 +13,9 @@ import com.kotlisoft.cardly.domain.use_case.DeleteCard
 import com.kotlisoft.cardly.domain.use_case.DeleteDeckByName
 import com.kotlisoft.cardly.domain.use_case.GetCard
 import com.kotlisoft.cardly.domain.use_case.GetCardsByDeck
+import com.kotlisoft.cardly.domain.use_case.GetDeckWithCards
 import com.kotlisoft.cardly.domain.use_case.GetDecks
+import com.kotlisoft.cardly.domain.use_case.UpdateCard
 import com.kotlisoft.cardly.domain.use_case.UpdateDeckName
 import dagger.Module
 import dagger.Provides
@@ -59,6 +61,8 @@ object RepositoryModule {
             getCard = GetCard(cardRepository),
             deleteCard = DeleteCard(cardRepository),
             getCardsByDeck = GetCardsByDeck(cardRepository),
+            getDeckWithCards = GetDeckWithCards(cardRepository),
+            updateCard = UpdateCard(cardRepository),
         )
     }
 }
