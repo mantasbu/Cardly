@@ -88,11 +88,11 @@ fun HomeScreen(
             LazyColumn(
                 modifier = Modifier.padding(top = it.calculateTopPadding())
             ) {
-                items(decks) {
+                items(decks) { deck ->
                     DeckItem(
-                        deck = it,
+                        deck = deck,
                         onClick = {
-                            onNavigateToDeckCards(it.name)
+                            onNavigateToDeckCards(deck.name)
                         },
                     )
                 }
