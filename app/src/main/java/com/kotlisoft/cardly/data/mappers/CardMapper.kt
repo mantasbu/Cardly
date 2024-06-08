@@ -5,6 +5,7 @@ import com.kotlisoft.cardly.domain.model.Card
 
 fun CardEntity.toCard(): Card {
     return Card(
+        id = id,
         question = question,
         answer = answer,
     )
