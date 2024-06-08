@@ -5,4 +5,6 @@ data class CardUseCases(
     val getCard: GetCard,
     val deleteCard: DeleteCard,
     val getCardsByDeck: GetCardsByDeck,
+    val getDeckWithCards: GetDeckWithCards,
+    val updateCard: UpdateCard,
 )
