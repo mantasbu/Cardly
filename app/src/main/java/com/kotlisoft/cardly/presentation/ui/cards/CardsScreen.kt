@@ -6,13 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,6 +25,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,11 +45,44 @@ fun CardsScreen(
     deckName: String,
     onNavigateBack: () -> Unit,
     deckViewModel: DeckViewModel = hiltViewModel(),
+    cardViewModel: CardViewModel = hiltViewModel(),
 ) {
     val isDeleteDeckDialogVisible = deckViewModel.state.value.isDeleteDeckDialogVisible
     val isEditDeckNameDialogVisible = deckViewModel.state.value.isEditDeckNameDialogVisible
-    var currentDeckName by remember {
-        mutableStateOf(deckName)
+
+    val isAddCardDialogVisible = cardViewModel.state.value.isAddCardDialogVisible
+    val isEditCardDialogVisible = cardViewModel.state.value.isEditCardDialogVisible
+    val cards = cardViewModel.state.value.cards
+
+    var currentDeckName by remember { mutableStateOf(deckName) }
+
+    LaunchedEffect(Unit) {
+        cardViewModel.initDeckName(currentDeckName)
+        cardViewModel.getCards()
+    }
+
+    if (isAddCardDialogVisible) {
+        AddCardDialog(
+            onDismissRequest = {
+                cardViewModel.onEvent(CardEvent.CancelAddCard)
+            },
+            onConfirmRequest = { question, answer ->
+                cardViewModel.onEvent(CardEvent.ConfirmAddCard(question, answer))
+            },
+        )
+    }
+
+    if (isEditCardDialogVisible) {
+        EditCardDialog(
+            initialQuestion = cardViewModel.selectedCard?.question ?: "",
+            initialAnswer = cardViewModel.selectedCard?.answer ?: "",
+            onDismissRequest = {
+                cardViewModel.onEvent(CardEvent.CancelEditCard)
+            },
+            onConfirmRequest = { question, answer ->
+                cardViewModel.onEvent(CardEvent.ConfirmEditCard(deckName, question, answer))
+            },
+        )
     }
 
     if (isDeleteDeckDialogVisible) {
@@ -118,11 +156,28 @@ fun CardsScreen(
             )
         },
         content = {
-            Text(
-                text = "A List Of Cards",
+            LazyColumn(
                 modifier = Modifier.padding(top = it.calculateTopPadding())
-            )
+            ) {
+                items(cards) { card ->
+                    CardItem(
+                        card = card,
+                        onEditCard = {
+                            cardViewModel.onEvent(CardEvent.EditCard(card))
+                        },
+                    )
+                }
+            }
         },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    cardViewModel.onEvent(CardEvent.AddCard)
+                }
+            ) {
+                Icon(Icons.Filled.Add, stringResource(R.string.floating_action_button))
+            }
+        }
     )
 }
 
@@ -198,6 +253,108 @@ fun EditDeckNameDialog(
                 enabled = currentName.isNotBlank(),
                 onClick = {
                     onConfirmRequest(currentName)
+                }
+            ) {
+                Text(text = stringResource(R.string.save))
+            }
+        },
+    )
+}
+
+@Composable
+fun AddCardDialog(
+    onDismissRequest: () -> Unit,
+    onConfirmRequest: (question: String, answer: String) -> Unit,
+) {
+    var question by remember { mutableStateOf("") }
+    var answer by remember { mutableStateOf("") }
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = {
+            Text(text = "Add Card")
+        },
+        text = {
+            Column {
+                TextField(
+                    value = question,
+                    onValueChange = {
+                        question = it
+                    },
+                ) // TODO: Add hints
+                TextField(
+                    value = answer,
+                    onValueChange = {
+                        answer = it
+                    },
+                )
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text(text = stringResource(R.string.cancel))
+            }
+        },
+        confirmButton = {
+            Button(
+                enabled = question.isNotBlank() && answer.isNotBlank(),
+                onClick = {
+                    onConfirmRequest(question, answer)
+                }
+            ) {
+                Text(text = stringResource(R.string.add))
+            }
+        },
+    )
+}
+
+@Composable
+fun EditCardDialog(
+    initialQuestion: String,
+    initialAnswer: String,
+    onDismissRequest: () -> Unit,
+    onConfirmRequest: (question: String, answer: String) -> Unit,
+) {
+    var question by remember { mutableStateOf(initialQuestion) }
+    var answer by remember { mutableStateOf(initialAnswer) }
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = {
+            Text(text = "Edit Card")
+        },
+        text = {
+            Column {
+                TextField(
+                    value = question,
+                    onValueChange = {
+                        question = it
+                    },
+                ) // TODO: Add hints
+                TextField(
+                    value = answer,
+                    onValueChange = {
+                        answer = it
+                    },
+                )
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text(text = stringResource(R.string.cancel))
+            }
+        },
+        confirmButton = {
+            Button(
+                enabled = question.isNotBlank() && answer.isNotBlank(),
+                onClick = {
+                    onConfirmRequest(question, answer)
                 }
             ) {
                 Text(text = stringResource(R.string.save))
