@@ -55,7 +55,8 @@ class CardViewModel @Inject constructor(
                     _state.value = state.value.copy(isAddCardDialogVisible = false)
                 }
             }
-            CardEvent.DeleteCard -> {
+            is CardEvent.DeleteCard -> {
+                selectedCard = event.card
                 _state.value = state.value.copy(isDeleteCardDialogVisible = true)
             }
             CardEvent.CancelDeleteCard -> {
@@ -64,7 +65,7 @@ class CardViewModel @Inject constructor(
             is CardEvent.ConfirmDeleteCard -> {
                 _state.value = state.value.copy(isDeleteCardDialogVisible = false)
                 viewModelScope.launch {
-                    cardUseCases.deleteCard(cardId = event.cardId)
+                    selectedCard?.let { cardUseCases.deleteCard(cardId = it.id) }
                 }
             }
             is CardEvent.EditCard -> {
