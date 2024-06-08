@@ -52,6 +52,7 @@ fun CardsScreen(
 
     val isAddCardDialogVisible = cardViewModel.state.value.isAddCardDialogVisible
     val isEditCardDialogVisible = cardViewModel.state.value.isEditCardDialogVisible
+    val isDeleteCardDialogVisible = cardViewModel.state.value.isDeleteCardDialogVisible
     val cards = cardViewModel.state.value.cards
 
     var currentDeckName by remember { mutableStateOf(deckName) }
@@ -81,6 +82,17 @@ fun CardsScreen(
             },
             onConfirmRequest = { question, answer ->
                 cardViewModel.onEvent(CardEvent.ConfirmEditCard(deckName, question, answer))
+            },
+        )
+    }
+
+    if (isDeleteCardDialogVisible) {
+        DeleteCardDialog(
+            onDismissRequest = {
+                cardViewModel.onEvent(CardEvent.CancelDeleteCard)
+            },
+            onConfirmRequest = {
+                cardViewModel.onEvent(CardEvent.ConfirmDeleteCard)
             },
         )
     }
@@ -165,6 +177,9 @@ fun CardsScreen(
                         onEditCard = {
                             cardViewModel.onEvent(CardEvent.EditCard(card))
                         },
+                        onDeleteCard = {
+                            cardViewModel.onEvent(CardEvent.DeleteCard(card))
+                        },
                     )
                 }
             }
@@ -193,6 +208,40 @@ fun DeleteDeckDialog(
         },
         text = {
             Text(text = stringResource(R.string.delete_deck_content))
+        },
+        dismissButton = {
+            Button(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text(text = stringResource(R.string.cancel))
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onConfirmRequest()
+                }
+            ) {
+                Text(text = stringResource(R.string.delete))
+            }
+        },
+    )
+}
+
+@Composable
+fun DeleteCardDialog(
+    onDismissRequest: () -> Unit,
+    onConfirmRequest: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = {
+            Text(text = stringResource(R.string.delete_card))
+        },
+        text = {
+            Text(text = stringResource(R.string.delete_card_content))
         },
         dismissButton = {
             Button(
