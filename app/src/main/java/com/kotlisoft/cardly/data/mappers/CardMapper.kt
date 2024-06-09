@@ -8,5 +8,6 @@ fun CardEntity.toCard(): Card {
         id = id,
         question = question,
         answer = answer,
+        level = level,
     )
 }

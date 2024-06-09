@@ -10,4 +10,5 @@ data class CardEntity(
     val deckName: String,
     val question: String,
     val answer: String,
+    val level: Int = 1,
 )

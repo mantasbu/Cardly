@@ -4,4 +4,5 @@ data class Card(
     val id: Int = 0,
     val question: String,
     val answer: String,
+    val level: Int = 1,
 )
