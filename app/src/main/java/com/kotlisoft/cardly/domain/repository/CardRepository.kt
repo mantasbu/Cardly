@@ -14,6 +14,8 @@ interface CardRepository {
 
     suspend fun updateCard(card: Card, deckName: String)
 
+    suspend fun updateCardLevel(id: Int, newLevel: Int)
+
     suspend fun deleteCardById(id: Int)
 
     suspend fun getDeckWithCards(deckName: String): DeckWithCards

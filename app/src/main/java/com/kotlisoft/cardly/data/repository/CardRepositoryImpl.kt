@@ -45,6 +45,10 @@ class CardRepositoryImpl @Inject constructor(
         dao.updateCard(updatedCard)
     }
 
+    override suspend fun updateCardLevel(id: Int, newLevel: Int) {
+        dao.updateCardLevel(id, newLevel)
+    }
+
     override suspend fun deleteCardById(id: Int) {
         dao.deleteCardById(id)
     }

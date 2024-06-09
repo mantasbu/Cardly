@@ -25,6 +25,9 @@ interface CardDao {
     @Update
     suspend fun updateCard(cardEntity: CardEntity)
 
+    @Query("UPDATE cards SET level = :newLevel WHERE id = :id")
+    suspend fun updateCardLevel(id: Int, newLevel: Int)
+
     @Transaction
     @Query("SELECT * FROM decks WHERE name = :deckName")
     suspend fun getDeckWithCards(deckName: String): DeckWithCardsEntity
