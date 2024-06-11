@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.components.CardDialog
+import com.kotlisoft.cardly.presentation.ui.components.DeleteDialog
 import com.kotlisoft.cardly.presentation.ui.decks.DeckEvent
 import com.kotlisoft.cardly.presentation.ui.decks.DeckViewModel
 
@@ -92,7 +93,9 @@ fun CardsScreen(
     }
 
     if (isDeleteCardDialogVisible) {
-        DeleteCardDialog(
+        DeleteDialog(
+            titleText = stringResource(R.string.delete_card),
+            contentText = stringResource(R.string.delete_card_content),
             onDismissRequest = {
                 cardViewModel.onEvent(CardEvent.CancelDeleteCard)
             },
@@ -103,7 +106,9 @@ fun CardsScreen(
     }
 
     if (isDeleteDeckDialogVisible) {
-        DeleteDeckDialog(
+        DeleteDialog(
+            titleText = stringResource(id = R.string.delete_deck),
+            contentText = stringResource(R.string.delete_deck_content),
             onDismissRequest = {
                 deckViewModel.onEvent(DeckEvent.CancelDeleteDeck)
             },
@@ -198,74 +203,6 @@ fun CardsScreen(
                 Icon(Icons.Filled.Add, stringResource(R.string.floating_action_button))
             }
         }
-    )
-}
-
-@Composable
-fun DeleteDeckDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmRequest: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = {
-            Text(text = stringResource(R.string.delete_deck))
-        },
-        text = {
-            Text(text = stringResource(R.string.delete_deck_content))
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onConfirmRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.delete))
-            }
-        },
-    )
-}
-
-@Composable
-fun DeleteCardDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmRequest: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = {
-            Text(text = stringResource(R.string.delete_card))
-        },
-        text = {
-            Text(text = stringResource(R.string.delete_card_content))
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onConfirmRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.delete))
-            }
-        },
     )
 }
 
