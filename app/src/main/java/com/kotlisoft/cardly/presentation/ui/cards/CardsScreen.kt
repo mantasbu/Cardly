@@ -38,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.components.CardDialog
 import com.kotlisoft.cardly.presentation.ui.components.DeleteDialog
+import com.kotlisoft.cardly.presentation.ui.components.EditDeckNameDialog
 import com.kotlisoft.cardly.presentation.ui.decks.DeckEvent
 import com.kotlisoft.cardly.presentation.ui.decks.DeckViewModel
 
@@ -203,51 +204,5 @@ fun CardsScreen(
                 Icon(Icons.Filled.Add, stringResource(R.string.floating_action_button))
             }
         }
-    )
-}
-
-@Composable
-fun EditDeckNameDialog(
-    initialDeckName: String,
-    onDismissRequest: () -> Unit,
-    onConfirmRequest: (String) -> Unit,
-) {
-    var currentName by remember {
-        mutableStateOf(initialDeckName)
-    }
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = {
-            Text(text = "Edit Deck Name")
-        },
-        text = {
-            Column {
-                TextField(
-                    value = currentName,
-                    onValueChange = {
-                        currentName = it
-                    },
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        confirmButton = {
-            Button(
-                enabled = currentName.isNotBlank(),
-                onClick = {
-                    onConfirmRequest(currentName)
-                }
-            ) {
-                Text(text = stringResource(R.string.save))
-            }
-        },
     )
 }
