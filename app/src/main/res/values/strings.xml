@@ -16,4 +16,5 @@
     <string name="edit_card">Edit Card</string>
     <string name="enter_question">Enter question</string>
     <string name="enter_answer">Enter answer</string>
+    <string name="edit_deck_name">Edit Deck Name</string>
 </resources>
