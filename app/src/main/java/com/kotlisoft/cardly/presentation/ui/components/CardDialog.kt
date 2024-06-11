@@ -25,10 +25,10 @@ fun CardDialog(
 ) {
     var question by remember { mutableStateOf(initialQuestion) }
     var answer by remember { mutableStateOf(initialAnswer) }
-    val isConfirmButtonEnabled by remember(question, answer) {
+    val isConfirmButtonEnabled by remember {
         derivedStateOf {
             question.isNotBlank() && answer.isNotBlank() &&
-                    question != initialQuestion && answer != initialAnswer
+                (question != initialQuestion || answer != initialAnswer)
         }
     }
     AlertDialog(
