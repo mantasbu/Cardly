@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kotlisoft.cardly.R
+import com.kotlisoft.cardly.presentation.ui.components.CardDialog
 import com.kotlisoft.cardly.presentation.ui.decks.DeckEvent
 import com.kotlisoft.cardly.presentation.ui.decks.DeckViewModel
 
@@ -63,7 +64,9 @@ fun CardsScreen(
     }
 
     if (isAddCardDialogVisible) {
-        AddCardDialog(
+        CardDialog(
+            titleText = stringResource(R.string.add_card),
+            confirmButtonText = stringResource(id = R.string.add),
             onDismissRequest = {
                 cardViewModel.onEvent(CardEvent.CancelAddCard)
             },
@@ -74,7 +77,9 @@ fun CardsScreen(
     }
 
     if (isEditCardDialogVisible) {
-        EditCardDialog(
+        CardDialog(
+            titleText = stringResource(R.string.edit_card),
+            confirmButtonText = stringResource(id = R.string.save),
             initialQuestion = cardViewModel.selectedCard?.question ?: "",
             initialAnswer = cardViewModel.selectedCard?.answer ?: "",
             onDismissRequest = {
@@ -302,108 +307,6 @@ fun EditDeckNameDialog(
                 enabled = currentName.isNotBlank(),
                 onClick = {
                     onConfirmRequest(currentName)
-                }
-            ) {
-                Text(text = stringResource(R.string.save))
-            }
-        },
-    )
-}
-
-@Composable
-fun AddCardDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmRequest: (question: String, answer: String) -> Unit,
-) {
-    var question by remember { mutableStateOf("") }
-    var answer by remember { mutableStateOf("") }
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = {
-            Text(text = "Add Card")
-        },
-        text = {
-            Column {
-                TextField(
-                    value = question,
-                    onValueChange = {
-                        question = it
-                    },
-                ) // TODO: Add hints
-                TextField(
-                    value = answer,
-                    onValueChange = {
-                        answer = it
-                    },
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        confirmButton = {
-            Button(
-                enabled = question.isNotBlank() && answer.isNotBlank(),
-                onClick = {
-                    onConfirmRequest(question, answer)
-                }
-            ) {
-                Text(text = stringResource(R.string.add))
-            }
-        },
-    )
-}
-
-@Composable
-fun EditCardDialog(
-    initialQuestion: String,
-    initialAnswer: String,
-    onDismissRequest: () -> Unit,
-    onConfirmRequest: (question: String, answer: String) -> Unit,
-) {
-    var question by remember { mutableStateOf(initialQuestion) }
-    var answer by remember { mutableStateOf(initialAnswer) }
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = {
-            Text(text = "Edit Card")
-        },
-        text = {
-            Column {
-                TextField(
-                    value = question,
-                    onValueChange = {
-                        question = it
-                    },
-                ) // TODO: Add hints
-                TextField(
-                    value = answer,
-                    onValueChange = {
-                        answer = it
-                    },
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        confirmButton = {
-            Button(
-                enabled = question.isNotBlank() && answer.isNotBlank(),
-                onClick = {
-                    onConfirmRequest(question, answer)
                 }
             ) {
                 Text(text = stringResource(R.string.save))
