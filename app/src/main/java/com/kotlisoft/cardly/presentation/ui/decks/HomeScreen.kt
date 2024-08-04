@@ -98,9 +98,6 @@ fun HomeScreen(
                 }
             }
         },
-        bottomBar = {
-            BottomBar()
-        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -156,60 +153,4 @@ fun AddDeckDialog(
             }
         },
     )
-}
-
-@Composable
-private fun BottomBar() {
-    var selectedIndex by remember { mutableIntStateOf(0) }
-    NavigationBar(
-        tonalElevation = 8.dp,
-    ) {
-        NavigationBarItem(
-            selected = selectedIndex == 0,
-            onClick = {
-                selectedIndex = 0
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = null,
-                )
-            },
-            label = {
-                Text(text = "Decks")
-            },
-        )
-
-        NavigationBarItem(
-            selected = selectedIndex == 1,
-            onClick = {
-                selectedIndex = 1
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = null,
-                )
-            },
-            label = {
-                Text(text = "Favorite")
-            },
-        )
-
-        NavigationBarItem(
-            selected = selectedIndex == 2,
-            onClick = {
-                selectedIndex = 2
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
-                )
-            },
-            label = {
-                Text(text = "Profile")
-            },
-        )
-    }
 }
