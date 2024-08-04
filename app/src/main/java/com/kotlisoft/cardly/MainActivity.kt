@@ -69,12 +69,6 @@ class MainActivity : ComponentActivity() {
                             },
                         )
                     }
-                    composable(route = Routes.CARD_SETTINGS.name) {
-                        // Allow user to create, update and delete the flash cards
-                    }
-                    composable(route = Routes.PROGRESS.name) {
-                        // Allow user to track progress of their flash cards
-                    }
                 }
             }
         }
