@@ -12,6 +12,7 @@ import com.kotlisoft.cardly.presentation.ui.cards.CardsScreen
 import com.kotlisoft.cardly.presentation.ui.decks.HomeScreen
 import com.kotlisoft.cardly.presentation.ui.navigation.NavArgs
 import com.kotlisoft.cardly.presentation.ui.navigation.Routes
+import com.kotlisoft.cardly.presentation.ui.quiz.QuizScreen
 import com.kotlisoft.cardly.presentation.ui.theme.CardlyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,13 +45,29 @@ class MainActivity : ComponentActivity() {
                         val deckName = it.arguments?.getString(NavArgs.DECK_NAME.name) ?: ""
                         CardsScreen(
                             deckName = deckName,
+                            onNavigateToQuizScreen = {
+                                navController.navigate(route = "${Routes.QUIZ.name}/$it")
+                            },
                             onNavigateBack = {
                                 navController.popBackStack()
                             },
                         )
                     }
-                    composable(route = Routes.QUIZ.name) {
-                        // Once user clicks on a topic, he is taken to the quiz screen for practising
+                    composable(
+                        route = "${Routes.QUIZ.name}/{${NavArgs.DECK_NAME}}",
+                        arguments = listOf(
+                            navArgument(name = NavArgs.DECK_NAME.name) {
+                                type = NavType.StringType
+                            },
+                        ),
+                    ) {
+                        val deckName = it.arguments?.getString(NavArgs.DECK_NAME.name) ?: ""
+                        QuizScreen(
+                            deckName = deckName,
+                            onNavigateBack = {
+                                navController.popBackStack()
+                            },
+                        )
                     }
                     composable(route = Routes.CARD_SETTINGS.name) {
                         // Allow user to create, update and delete the flash cards

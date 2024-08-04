@@ -2,7 +2,6 @@ package com.kotlisoft.cardly.presentation.ui.cards
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,15 +12,13 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -47,6 +44,7 @@ import com.kotlisoft.cardly.presentation.ui.decks.DeckViewModel
 fun CardsScreen(
     deckName: String,
     onNavigateBack: () -> Unit,
+    onNavigateToQuizScreen: (currentDeckName: String) -> Unit,
     deckViewModel: DeckViewModel = hiltViewModel(),
     cardViewModel: CardViewModel = hiltViewModel(),
 ) {
@@ -154,6 +152,13 @@ fun CardsScreen(
                                     deckViewModel.onEvent(DeckEvent.EditDeckName)
                                 }
                             )
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = null,
+                                modifier = Modifier.clickable {
+                                    onNavigateToQuizScreen(currentDeckName)
+                                }
+                            )
                         }
                         Icon(
                             imageVector = Icons.Default.Delete,
@@ -182,7 +187,7 @@ fun CardsScreen(
             LazyColumn(
                 modifier = Modifier.padding(top = it.calculateTopPadding())
             ) {
-                items(cards) { card ->
+                items(cards.sortedBy { it.level }) { card ->
                     CardItem(
                         card = card,
                         onEditCard = {
