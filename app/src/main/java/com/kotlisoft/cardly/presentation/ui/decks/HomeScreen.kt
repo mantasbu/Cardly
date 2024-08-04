@@ -159,7 +159,7 @@ fun AddDeckDialog(
 }
 
 @Composable
-fun BottomBar() {
+private fun BottomBar() {
     var selectedIndex by remember { mutableIntStateOf(0) }
     NavigationBar(
         tonalElevation = 8.dp,
