@@ -3,7 +3,6 @@ package com.kotlisoft.cardly.data.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import com.kotlisoft.cardly.domain.model.Deck
 import kotlinx.coroutines.flow.Flow
 
@@ -21,8 +20,4 @@ interface DeckDao {
 
     @Query("UPDATE decks SET name = :newDeckName WHERE name = :currentDeckName")
     suspend fun updateDeckName(currentDeckName: String, newDeckName: String)
-
-    @Transaction
-    @Query("SELECT * FROM decks WHERE name = :deckName")
-    suspend fun getDeckWithCards(deckName: String): DeckWithCardsEntity
 }

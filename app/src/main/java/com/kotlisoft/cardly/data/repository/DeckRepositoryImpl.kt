@@ -2,9 +2,7 @@ package com.kotlisoft.cardly.data.repository
 
 import com.kotlisoft.cardly.data.local.DeckDao
 import com.kotlisoft.cardly.data.local.DeckEntity
-import com.kotlisoft.cardly.data.mappers.toDeckWithCards
 import com.kotlisoft.cardly.domain.model.Deck
-import com.kotlisoft.cardly.domain.model.DeckWithCards
 import com.kotlisoft.cardly.domain.repository.DeckRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -28,9 +26,5 @@ class DeckRepositoryImpl @Inject constructor(
 
     override suspend fun updateDeckName(currentDeckName: String, newDeckName: String) {
         dao.updateDeckName(currentDeckName, newDeckName)
-    }
-
-    override suspend fun getDeckWithCards(deckName: String): DeckWithCards {
-        return dao.getDeckWithCards(deckName).toDeckWithCards()
     }
 }
