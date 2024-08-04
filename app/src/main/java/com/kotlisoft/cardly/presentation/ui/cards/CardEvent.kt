@@ -12,4 +12,5 @@ sealed class CardEvent {
     data class EditCard(val card: Card): CardEvent()
     data object CancelEditCard: CardEvent()
     data class ConfirmEditCard(val deckName: String, val question: String, val answer: String): CardEvent()
+    data class UpdateCardLevel(val id: Int, val newLevel: Int): CardEvent()
 }

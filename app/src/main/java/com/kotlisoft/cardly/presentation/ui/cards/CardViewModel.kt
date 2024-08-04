@@ -86,6 +86,11 @@ class CardViewModel @Inject constructor(
                     }
                 }
             }
+            is CardEvent.UpdateCardLevel -> {
+                viewModelScope.launch {
+                    cardUseCases.updateCardLevel(id = event.id, newLevel = event.newLevel)
+                }
+            }
         }
     }
 }
