@@ -1,4 +1,4 @@
-package com.kotlisoft.cardly
+package com.kotlisoft.cardly.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
