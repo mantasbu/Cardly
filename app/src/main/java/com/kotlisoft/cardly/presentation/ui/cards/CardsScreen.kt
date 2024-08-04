@@ -152,13 +152,15 @@ fun CardsScreen(
                                     deckViewModel.onEvent(DeckEvent.EditDeckName)
                                 }
                             )
-                            Icon(
-                                imageVector = Icons.Default.PlayArrow,
-                                contentDescription = null,
-                                modifier = Modifier.clickable {
-                                    onNavigateToQuizScreen(currentDeckName)
-                                }
-                            )
+                            if (cards.isNotEmpty()) {
+                                Icon(
+                                    imageVector = Icons.Default.PlayArrow,
+                                    contentDescription = null,
+                                    modifier = Modifier.clickable {
+                                        onNavigateToQuizScreen(currentDeckName)
+                                    }
+                                )
+                            }
                         }
                         Icon(
                             imageVector = Icons.Default.Delete,
