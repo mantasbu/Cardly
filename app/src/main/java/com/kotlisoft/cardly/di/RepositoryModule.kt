@@ -16,6 +16,7 @@ import com.kotlisoft.cardly.domain.use_case.GetCardsByDeck
 import com.kotlisoft.cardly.domain.use_case.GetDeckWithCards
 import com.kotlisoft.cardly.domain.use_case.GetDecks
 import com.kotlisoft.cardly.domain.use_case.UpdateCard
+import com.kotlisoft.cardly.domain.use_case.UpdateCardLevel
 import com.kotlisoft.cardly.domain.use_case.UpdateDeckName
 import dagger.Module
 import dagger.Provides
@@ -63,6 +64,7 @@ object RepositoryModule {
             getCardsByDeck = GetCardsByDeck(cardRepository),
             getDeckWithCards = GetDeckWithCards(cardRepository),
             updateCard = UpdateCard(cardRepository),
+            updateCardLevel = UpdateCardLevel(cardRepository),
         )
     }
 }
