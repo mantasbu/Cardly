@@ -111,7 +111,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun AddDeckDialog(
+private fun AddDeckDialog(
     onDismissRequest: () -> Unit,
     onConfirmRequest: (String) -> Unit,
 ) {
