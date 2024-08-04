@@ -1,6 +1,7 @@
 package com.kotlisoft.cardly.presentation.ui.cards
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,25 +42,29 @@ fun CardItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
                 .height(32.dp),
         ) {
             Text(text = if (isAnswerVisible) card.answer else card.question)
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = null,
-                modifier = Modifier.clickable {
-                    onEditCard()
-                }
-            )
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
-                modifier = Modifier.clickable {
-                    onDeleteCard()
-                }
-            )
+            Row {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onEditCard()
+                    }
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onDeleteCard()
+                    }
+                )
+            }
         }
     }
 }
