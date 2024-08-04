@@ -20,4 +20,6 @@
     <string name="card">Card: %1$s/%2$s</string>
     <string name="level">Level: %1$s</string>
     <string name="add_deck">Add Deck</string>
+    <string name="no_cards">There are no cards. Click \"+\" to add a new card</string>
+    <string name="no_decks">There are no decks. Click \"+\" to add a new deck</string>
 </resources>
