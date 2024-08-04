@@ -20,6 +20,10 @@ class DeckRepositoryImpl @Inject constructor(
         dao.deleteDeckByName(name)
     }
 
+    override suspend fun deleteAllCardsByDeckName(deckName: String) {
+        dao.deleteAllCardsByDeckName(deckName)
+    }
+
     override fun getDecks(): Flow<List<Deck>> {
         return dao.getDecks()
     }

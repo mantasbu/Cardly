@@ -9,6 +9,8 @@ interface DeckRepository {
 
     suspend fun deleteDeckByName(name: String)
 
+    suspend fun deleteAllCardsByDeckName(deckName: String)
+
     fun getDecks(): Flow<List<Deck>>
 
     suspend fun updateDeckName(currentDeckName: String, newDeckName: String)
