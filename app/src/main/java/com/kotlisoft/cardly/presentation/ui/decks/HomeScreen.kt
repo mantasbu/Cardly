@@ -121,7 +121,7 @@ private fun AddDeckDialog(
     AlertDialog(
         onDismissRequest = onDismissRequest,
         title = {
-            Text(text = "Add Deck")
+            Text(text = stringResource(R.string.add_deck))
         },
         text = {
             Column {
