@@ -11,8 +11,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.cards.CardEvent
 import com.kotlisoft.cardly.presentation.ui.cards.CardViewModel
 import com.kotlisoft.cardly.presentation.ui.components.FlashCard
@@ -36,11 +38,11 @@ fun QuizScreen(
     if (cards.isNotEmpty()) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Card: ${currentCardIndex + 1}/${cards.size}",
+                text = stringResource(R.string.card, currentCardIndex + 1, cards.size),
                 modifier = Modifier.padding(top = 16.dp)
             )
             Text(
-                text = "Level: ${cards[currentCardIndex].level}",
+                text = stringResource(R.string.level, cards[currentCardIndex].level),
                 modifier = Modifier.padding(top = 16.dp)
             )
             FlashCard(

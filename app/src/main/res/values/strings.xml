@@ -17,4 +17,6 @@
     <string name="enter_question">Enter question</string>
     <string name="enter_answer">Enter answer</string>
     <string name="edit_deck_name">Edit Deck Name</string>
+    <string name="card">Card: %1$s/%2$s</string>
+    <string name="level">Level: %1$s</string>
 </resources>
