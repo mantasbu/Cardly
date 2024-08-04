@@ -36,6 +36,7 @@ import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.components.CardDialog
 import com.kotlisoft.cardly.presentation.ui.components.DeleteDialog
 import com.kotlisoft.cardly.presentation.ui.components.EditDeckNameDialog
+import com.kotlisoft.cardly.presentation.ui.components.NoItemsText
 import com.kotlisoft.cardly.presentation.ui.decks.DeckEvent
 import com.kotlisoft.cardly.presentation.ui.decks.DeckViewModel
 
@@ -189,16 +190,22 @@ fun CardsScreen(
             LazyColumn(
                 modifier = Modifier.padding(top = it.calculateTopPadding())
             ) {
-                items(cards.sortedBy { it.level }) { card ->
-                    CardItem(
-                        card = card,
-                        onEditCard = {
-                            cardViewModel.onEvent(CardEvent.EditCard(card))
-                        },
-                        onDeleteCard = {
-                            cardViewModel.onEvent(CardEvent.DeleteCard(card))
-                        },
-                    )
+                if (cards.isNotEmpty()) {
+                    items(cards.sortedBy { it.level }) { card ->
+                        CardItem(
+                            card = card,
+                            onEditCard = {
+                                cardViewModel.onEvent(CardEvent.EditCard(card))
+                            },
+                            onDeleteCard = {
+                                cardViewModel.onEvent(CardEvent.DeleteCard(card))
+                            },
+                        )
+                    }
+                } else {
+                    item {
+                        NoItemsText(stringResourceId = R.string.no_cards)
+                    }
                 }
             }
         },
