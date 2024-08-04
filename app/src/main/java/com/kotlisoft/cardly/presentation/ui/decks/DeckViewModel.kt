@@ -63,6 +63,7 @@ class DeckViewModel @Inject constructor(
                 _state.value = state.value.copy(isDeleteDeckDialogVisible = false)
                 viewModelScope.launch {
                     deckUseCases.deleteDeckByName(name = event.name)
+                    deckUseCases.deleteAllCardsByDeckName(deckName = event.name)
                 }
             }
             is DeckEvent.EditDeckName -> {
