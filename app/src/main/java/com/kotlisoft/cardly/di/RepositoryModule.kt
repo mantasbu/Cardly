@@ -9,6 +9,7 @@ import com.kotlisoft.cardly.domain.use_case.AddCard
 import com.kotlisoft.cardly.domain.use_case.AddDeck
 import com.kotlisoft.cardly.domain.use_case.CardUseCases
 import com.kotlisoft.cardly.domain.use_case.DeckUseCases
+import com.kotlisoft.cardly.domain.use_case.DeleteAllCardsByDeckName
 import com.kotlisoft.cardly.domain.use_case.DeleteCard
 import com.kotlisoft.cardly.domain.use_case.DeleteDeckByName
 import com.kotlisoft.cardly.domain.use_case.GetCard
@@ -49,6 +50,7 @@ object RepositoryModule {
         return DeckUseCases(
             addDeck = AddDeck(deckRepository),
             deleteDeckByName = DeleteDeckByName(deckRepository),
+            deleteAllCardsByDeckName = DeleteAllCardsByDeckName(deckRepository),
             updateDeckName = UpdateDeckName(deckRepository),
             getDecks = GetDecks(deckRepository),
         )
