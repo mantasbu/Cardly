@@ -4,6 +4,5 @@ enum class Routes {
     HOME,
     CARDS,
     QUIZ,
-    CARD_SETTINGS,
-    PROGRESS,
+    SETTINGS,
 }
