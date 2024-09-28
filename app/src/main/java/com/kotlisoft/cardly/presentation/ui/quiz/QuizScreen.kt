@@ -22,6 +22,7 @@ import com.kotlisoft.cardly.presentation.ui.components.FlashCard
 @Composable
 fun QuizScreen(
     deckName: String,
+    onSpeak: (textToSpeak: String, isCardFlipped: Boolean) -> Unit,
     onNavigateBack: () -> Unit,
     cardViewModel: CardViewModel = hiltViewModel(),
 ) {
@@ -39,17 +40,18 @@ fun QuizScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = stringResource(R.string.card, currentCardIndex + 1, cards.size),
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
             )
             Text(
-                text = stringResource(R.string.level, cards[currentCardIndex].level),
-                modifier = Modifier.padding(top = 16.dp)
+                text = stringResource(R.string.level, "${cards[currentCardIndex].level}/5"),
+                modifier = Modifier.padding(top = 16.dp),
             )
             FlashCard(
                 question = cards[currentCardIndex].question,
                 answer = cards[currentCardIndex].answer,
+                onSpeak = onSpeak,
                 onPositiveClick = {
-                    if (cards[currentCardIndex].level != 1) {
+                    if (cards[currentCardIndex].level < 5) {
                         cardViewModel.onEvent(
                             CardEvent.UpdateCardLevel(
                                 id = cards[currentCardIndex].id,
@@ -65,7 +67,7 @@ fun QuizScreen(
                 },
                 onNegativeClick = {
                     val level = cards[currentCardIndex].level
-                    if (level in 1..5) {
+                    if (level in 2..5) {
                         cardViewModel.onEvent(
                             CardEvent.UpdateCardLevel(
                                 id = cards[currentCardIndex].id,
