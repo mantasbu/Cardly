@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -45,6 +46,7 @@ import androidx.compose.ui.unit.dp
 fun FlashCard(
     question: String,
     answer: String,
+    onSpeak: (textToSpeak: String, isCardFlipped: Boolean) -> Unit,
     onPositiveClick: () -> Unit,
     onNegativeClick: () -> Unit,
 ) {
@@ -127,6 +129,22 @@ fun FlashCard(
             Spacer(modifier = Modifier.size(32.dp))
             Button(
                 onClick = {
+                    val textToSpeak = if (flipped) answer else question
+                    onSpeak(textToSpeak, flipped)
+                },
+                shape = CircleShape,
+                modifier = Modifier.size(80.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Magenta),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
+            Spacer(modifier = Modifier.size(32.dp))
+            Button(
+                onClick = {
                     flipped = false
                     onPositiveClick()
                 },
@@ -152,6 +170,7 @@ private fun FlashCardPreview() {
             FlashCard(
                 question = "What is Jetpack Compose?",
                 answer = "A modern toolkit for building native Android UI using declarative components.",
+                onSpeak = { _, _ -> },
                 onNegativeClick = {},
                 onPositiveClick = {},
             )
