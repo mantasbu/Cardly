@@ -19,4 +19,6 @@ interface CardRepository {
     suspend fun deleteCardById(id: Int)
 
     suspend fun getDeckWithCards(deckName: String): DeckWithCards
+
+    suspend fun deleteAllCards()
 }

@@ -56,4 +56,8 @@ class CardRepositoryImpl @Inject constructor(
     override suspend fun getDeckWithCards(deckName: String): DeckWithCards {
         return dao.getDeckWithCards(deckName).toDeckWithCards()
     }
+
+    override suspend fun deleteAllCards() {
+        dao.deleteAllCards()
+    }
 }

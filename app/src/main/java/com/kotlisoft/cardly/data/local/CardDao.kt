@@ -31,4 +31,7 @@ interface CardDao {
     @Transaction
     @Query("SELECT * FROM decks WHERE name = :deckName")
     suspend fun getDeckWithCards(deckName: String): DeckWithCardsEntity
+
+    @Query("DELETE FROM cards")
+    suspend fun deleteAllCards()
 }

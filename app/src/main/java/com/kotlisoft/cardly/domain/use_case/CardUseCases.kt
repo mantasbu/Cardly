@@ -8,4 +8,5 @@ data class CardUseCases(
     val getDeckWithCards: GetDeckWithCards,
     val updateCard: UpdateCard,
     val updateCardLevel: UpdateCardLevel,
+    val deleteAllCards: DeleteAllCards,
 )
