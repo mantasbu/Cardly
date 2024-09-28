@@ -6,4 +6,5 @@ data class DeckUseCases(
     val deleteAllCardsByDeckName: DeleteAllCardsByDeckName,
     val updateDeckName: UpdateDeckName,
     val getDecks: GetDecks,
+    val deleteAllDecks: DeleteAllDecks,
 )

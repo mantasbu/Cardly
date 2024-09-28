@@ -31,4 +31,8 @@ class DeckRepositoryImpl @Inject constructor(
     override suspend fun updateDeckName(currentDeckName: String, newDeckName: String) {
         dao.updateDeckName(currentDeckName, newDeckName)
     }
+
+    override suspend fun deleteAllDecks() {
+        dao.deleteAllDecks()
+    }
 }
