@@ -22,4 +22,12 @@
     <string name="add_deck">Add Deck</string>
     <string name="no_cards">There are no cards. Click \"+\" to add a new card</string>
     <string name="no_decks">There are no decks. Click \"+\" to add a new deck</string>
+    <string name="import_sample_data">Import Sample Data</string>
+    <string name="delete_all_data">Delete All Data</string>
+    <string name="delete_all_data_content">Are you sure you want to delete all data? (This action cannot be undone)</string>
+    <string name="question_cards_voice">Question cards voice:</string>
+    <string name="answer_cards_voice">Answer cards voice:</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="settings">Settings</string>
 </resources>
