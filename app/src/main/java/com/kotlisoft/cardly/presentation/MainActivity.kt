@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.cards.CardsScreen
 import com.kotlisoft.cardly.presentation.ui.decks.HomeScreen
 import com.kotlisoft.cardly.presentation.ui.navigation.NavArgs
@@ -22,6 +23,7 @@ import com.kotlisoft.cardly.presentation.ui.navigation.Routes
 import com.kotlisoft.cardly.presentation.ui.quiz.QuizScreen
 import com.kotlisoft.cardly.presentation.ui.settings.SettingLocale
 import com.kotlisoft.cardly.presentation.ui.settings.SettingsScreen
+import com.kotlisoft.cardly.presentation.ui.settings.SettingsViewModel
 import com.kotlisoft.cardly.presentation.ui.theme.CardlyTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -29,7 +31,7 @@ import java.util.Locale
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainActivityViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var textToSpeechInSpanish: TextToSpeech
@@ -88,10 +90,10 @@ class MainActivity : ComponentActivity() {
                         ),
                     ) {
                         val deckName = it.arguments?.getString(NavArgs.DECK_NAME.name) ?: ""
-                        val settingsState by remember(viewModel.state.value) {
-                            mutableStateOf(viewModel.state.value)
+                        val settingsState by remember(settingsViewModel.state.value) {
+                            mutableStateOf(settingsViewModel.state.value)
                         }
-                        viewModel.loadSettings()
+                        settingsViewModel.loadSettings()
                         QuizScreen(
                             deckName = deckName,
                             onSpeak = { textToSpeak, isCardFlipped ->
@@ -140,7 +142,7 @@ class MainActivity : ComponentActivity() {
             textToSpeech.setSpeechRate(1f)
             textToSpeech.setPitch(0.8f)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(this, "Language is not installed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.language_not_installed), Toast.LENGTH_SHORT).show()
                 val installIntent = Intent()
                 installIntent.action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
                 startActivity(installIntent)
@@ -154,7 +156,7 @@ class MainActivity : ComponentActivity() {
             textToSpeechInSpanish.setSpeechRate(1f)
             textToSpeechInSpanish.setPitch(0.8f)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(this, "Language is not installed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.language_not_installed), Toast.LENGTH_SHORT).show()
                 val installIntent = Intent()
                 installIntent.action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
                 startActivity(installIntent)
