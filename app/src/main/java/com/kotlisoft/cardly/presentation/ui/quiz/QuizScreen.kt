@@ -1,8 +1,18 @@
 package com.kotlisoft.cardly.presentation.ui.quiz
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,13 +22,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kotlisoft.cardly.R
 import com.kotlisoft.cardly.presentation.ui.cards.CardEvent
 import com.kotlisoft.cardly.presentation.ui.cards.CardViewModel
 import com.kotlisoft.cardly.presentation.ui.components.FlashCard
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizScreen(
     deckName: String,
@@ -38,13 +48,26 @@ fun QuizScreen(
 
     if (cards.isNotEmpty()) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = stringResource(R.string.card, currentCardIndex + 1, cards.size),
-                modifier = Modifier.padding(top = 16.dp),
-            )
-            Text(
-                text = stringResource(R.string.level, "${cards[currentCardIndex].level}/5"),
-                modifier = Modifier.padding(top = 16.dp),
+            TopAppBar(
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier.clickable { onNavigateBack() },
+                    )
+                },
+                title = {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(text = stringResource(R.string.card, currentCardIndex + 1, cards.size))
+                        Text(text = stringResource(R.string.level, "${cards[currentCardIndex].level}/5"))
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                ),
             )
             FlashCard(
                 question = cards[currentCardIndex].question,
