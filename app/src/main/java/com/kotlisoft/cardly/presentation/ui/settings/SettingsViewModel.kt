@@ -28,6 +28,10 @@ class SettingsViewModel @Inject constructor(
     val state: State<SettingsState> = _state
 
     init {
+        loadSettings()
+    }
+
+    fun loadSettings() {
         val settings = preferences.loadSettings()
         _state.value = _state.value.copy(
             isSampleDataImported = settings.isSampleDataImported,
