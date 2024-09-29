@@ -43,13 +43,13 @@ class SettingsViewModel @Inject constructor(
             }
             is SettingEvent.SwitchQuestionLocale -> {
                 val currentLocale = preferences.loadSettings().questionLocale
-                val newLocale = if (currentLocale == "US") "ES" else "US"
+                val newLocale = if (currentLocale == SettingLocale.US) SettingLocale.ES else SettingLocale.US
                 preferences.saveQuestionLocale(locale = newLocale)
                 _state.value = _state.value.copy(questionLocale = newLocale)
             }
             is SettingEvent.SwitchAnswerLocale -> {
                 val currentLocale = preferences.loadSettings().answerLocale
-                val newLocale = if (currentLocale == "US") "ES" else "US"
+                val newLocale = if (currentLocale == SettingLocale.US) SettingLocale.ES else SettingLocale.US
                 preferences.saveAnswerLocale(locale = newLocale)
                 _state.value = _state.value.copy(answerLocale = newLocale)
             }

@@ -142,9 +142,9 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingSwitch(
-    currentLocale: String,
+    currentLocale: SettingLocale,
     settingName: Int,
-    onCheckedChange: (String) -> Unit,
+    onCheckedChange: (SettingLocale) -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -156,12 +156,12 @@ private fun SettingSwitch(
             modifier = Modifier.padding(horizontal = 8.dp),
         )
         Switch(
-            checked = currentLocale == SettingLocale.US.name,
+            checked = currentLocale == SettingLocale.US,
             onCheckedChange = { isChecked ->
                  if (isChecked) {
-                     onCheckedChange(SettingLocale.US.name)
+                     onCheckedChange(SettingLocale.US)
                  } else {
-                     onCheckedChange(SettingLocale.ES.name)
+                     onCheckedChange(SettingLocale.ES)
                  }
             },
         )

@@ -96,8 +96,8 @@ class MainActivity : ComponentActivity() {
                             deckName = deckName,
                             onSpeak = { textToSpeak, isCardFlipped ->
                                 val shouldSpeakSpanish =
-                                    (isCardFlipped && settingsState.answerLocale == SettingLocale.ES.name) ||
-                                            (!isCardFlipped && settingsState.questionLocale == SettingLocale.ES.name)
+                                    (isCardFlipped && settingsState.answerLocale == SettingLocale.ES) ||
+                                            (!isCardFlipped && settingsState.questionLocale == SettingLocale.ES)
                                 if (shouldSpeakSpanish) {
                                     textToSpeechInSpanish.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "")
                                 } else {

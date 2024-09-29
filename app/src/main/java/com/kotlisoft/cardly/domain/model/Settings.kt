@@ -1,7 +1,9 @@
 package com.kotlisoft.cardly.domain.model
 
+import com.kotlisoft.cardly.presentation.ui.settings.SettingLocale
+
 data class Settings(
-    val questionLocale: String,
-    val answerLocale: String,
+    val questionLocale: SettingLocale,
+    val answerLocale: SettingLocale,
     val isSampleDataImported: Boolean,
 )
