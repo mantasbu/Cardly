@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         textToSpeech = TextToSpeech(this) { status ->
-            onInit(status)
+            onInitEnglish(status)
         }
 
         textToSpeechInSpanish = TextToSpeech(this) { status ->
@@ -136,7 +136,7 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    private fun onInit(status: Int) {
+    private fun onInitEnglish(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val result = textToSpeech.setLanguage(Locale.US)
             textToSpeech.setSpeechRate(1f)
